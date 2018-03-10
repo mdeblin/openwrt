@@ -952,6 +952,9 @@ ar71xx_board_detect() {
 	*"Rambutan"*)
 		name="rambutan"
 		;;
+	*"Rambutan-I2C"*)
+		name="rambutan-i2c"
+		;;
 	*"RE355")
 		name="re355"
 		;;
