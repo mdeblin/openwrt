@@ -57,6 +57,12 @@ static struct i2c_board_info tpm_i2c_info[] __initdata = {
 	}
 };
 
+static struct i2c_board_info ina_i2c_info[] __initdata = {
+	{
+		I2C_BOARD_INFO("ina219", 0x40),
+	}
+};
+
 static struct at803x_platform_data rambutan_ar8032_data = {
 	.has_reset_gpio = 1,
 	.reset_gpio = 17,
@@ -125,6 +131,7 @@ static void __init rambutan_i2c_setup(void)
 				    ARRAY_SIZE(rambutan_mdio1_info));
 	platform_device_register(&rambutan_i2c_gpio_device);
 	i2c_register_board_info(0, tpm_i2c_info, ARRAY_SIZE(tpm_i2c_info));
+	i2c_register_board_info(0, ina_i2c_info, ARRAY_SIZE(ina_i2c_info));
 	ath79_register_mdio(0, 0x0);
 	ath79_register_mdio(1, 0x0);
 
