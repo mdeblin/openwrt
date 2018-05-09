@@ -38,7 +38,7 @@ index 5c1b097..b90c472 100644
 +			qcom,max_clk = <192000000>;
 +			clocks = <&gcc GCC_SDCC1_APPS_CLK>,
 +				 <&gcc GCC_SDCC1_AHB_CLK>;
-+			clock-names = "core_clk", "iface_clk";
++			clock-names = "core", "iface";
 +			qcom,large-address-bus;
 +			status = "disabled";
 +		};
