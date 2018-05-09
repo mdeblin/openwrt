@@ -12,7 +12,7 @@ diff --git a/arch/arm/boot/dts/qcom-ipq4019.dtsi b/arch/arm/boot/dts/qcom-ipq401
 index 5c1b097..b90c472 100644
 --- a/arch/arm/boot/dts/qcom-ipq4019.dtsi
 +++ b/arch/arm/boot/dts/qcom-ipq4019.dtsi
-@@ -439,6 +439,33 @@
+@@ -439,6 +439,34 @@
  			status = "disabled";
  		};
  
@@ -40,6 +40,7 @@ index 5c1b097..b90c472 100644
 +				 <&gcc GCC_SDCC1_AHB_CLK>;
 +			clock-names = "core", "iface";
 +			qcom,large-address-bus;
++			non-removable;
 +			status = "disabled";
 +		};
 +
