@@ -124,7 +124,8 @@
 
 		sdhc_1: sdhci@7824000{
 			status = "okay";
-			qcom,bus-speed-mode = "HS200_1p8v", "DDR_1p8v";
+			mmc-hs200-1_8v;
+			mmc-ddr-1_8v;
 			qcom,clk-rates = <400000 25000000
 					  50000000 100000000
 					  192000000 384000000>;
