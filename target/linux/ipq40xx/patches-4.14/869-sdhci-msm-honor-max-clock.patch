@@ -1,27 +1,18 @@
-From 2614259ddf98280eb195b947384f223176ec3e03 Mon Sep 17 00:00:00 2001
+From ef15f04c54eb3c95b8d52d9cfc41a55f5186806d Mon Sep 17 00:00:00 2001
 From: Robert Marko <robimarko@gmail.com>
-Date: Thu, 10 May 2018 23:15:22 +0200
+Date: Thu, 10 May 2018 23:24:50 +0200
 Subject: [PATCH] mmc: sdhci-msm: Use max-frequency property
 
 Use the passed max-frequency property from sdhci node instead of using 400MHz as default.
 That behaviour breaks stuff
 ---
- drivers/mmc/host/sdhci-msm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/mmc/host/sdhci-msm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/mmc/host/sdhci-msm.c b/drivers/mmc/host/sdhci-msm.c
-index 92c483ec6..aa93981e1 100644
+index 92c483ec6..18c7d1204 100644
 --- a/drivers/mmc/host/sdhci-msm.c
 +++ b/drivers/mmc/host/sdhci-msm.c
-@@ -1151,7 +1151,7 @@ static int sdhci_msm_probe(struct platform_device *pdev)
- 	msm_host->bus_clk = devm_clk_get(&pdev->dev, "bus");
- 	if (!IS_ERR(msm_host->bus_clk)) {
- 		/* Vote for max. clk rate for max. performance */
--		ret = clk_set_rate(msm_host->bus_clk, INT_MAX);
-+		ret = clk_set_rate(msm_host->bus_clk, host->mmc->f_max);
- 		if (ret)
- 			goto pltfm_free;
- 		ret = clk_prepare_enable(msm_host->bus_clk);
 @@ -1190,7 +1190,7 @@ static int sdhci_msm_probe(struct platform_device *pdev)
  	}
  
