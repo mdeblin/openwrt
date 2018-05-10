@@ -1,12 +1,16 @@
-From aa609716f70ff4f3fa99e6e77023c70590d043a9 Mon Sep 17 00:00:00 2001
+From 541d3724433f6055b3ac6449e9b16a5b6054f812 Mon Sep 17 00:00:00 2001
 From: Robert Marko <robimarko@gmail.com>
-Date: Fri, 11 May 2018 00:05:25 +0200
-Subject: [PATCH] mmc: sdhci-msm: Backport version from 4.16.7
+Date: Fri, 11 May 2018 00:25:20 +0200
+Subject: [PATCH] mmc: sdhci-msm: Backport version from 4.16.8
 
-Backport sdhci-msm from 4.16.7,this should have less bugs.
+Backport sdhci-msm from 4.16.8,this should have less bugs.
+Update sdhci.c
+Update sdhci.h
 ---
  drivers/mmc/host/sdhci-msm.c | 324 ++++++++++++++++++++++++++++++++++++-------
- 1 file changed, 272 insertions(+), 52 deletions(-)
+ drivers/mmc/host/sdhci.c     |  65 +++++----
+ drivers/mmc/host/sdhci.h     |   2 +-
+ 3 files changed, 310 insertions(+), 81 deletions(-)
 
 diff --git a/drivers/mmc/host/sdhci-msm.c b/drivers/mmc/host/sdhci-msm.c
 index 92c483ec6..c283291db 100644
@@ -505,3 +509,173 @@ index 92c483ec6..c283291db 100644
  }
  #endif
  
+diff --git a/drivers/mmc/host/sdhci.c b/drivers/mmc/host/sdhci.c
+index d35deb799..2020e57ff 100644
+--- a/drivers/mmc/host/sdhci.c
++++ b/drivers/mmc/host/sdhci.c
+@@ -2493,12 +2493,12 @@ static void sdhci_tasklet_finish(unsigned long param)
+ 		;
+ }
+ 
+-static void sdhci_timeout_timer(unsigned long data)
++static void sdhci_timeout_timer(struct timer_list *t)
+ {
+ 	struct sdhci_host *host;
+ 	unsigned long flags;
+ 
+-	host = (struct sdhci_host*)data;
++	host = from_timer(host, t, timer);
+ 
+ 	spin_lock_irqsave(&host->lock, flags);
+ 
+@@ -2515,12 +2515,12 @@ static void sdhci_timeout_timer(unsigned long data)
+ 	spin_unlock_irqrestore(&host->lock, flags);
+ }
+ 
+-static void sdhci_timeout_data_timer(unsigned long data)
++static void sdhci_timeout_data_timer(struct timer_list *t)
+ {
+ 	struct sdhci_host *host;
+ 	unsigned long flags;
+ 
+-	host = (struct sdhci_host *)data;
++	host = from_timer(host, t, data_timer);
+ 
+ 	spin_lock_irqsave(&host->lock, flags);
+ 
+@@ -2907,25 +2907,33 @@ static irqreturn_t sdhci_thread_irq(int irq, void *dev_id)
+  * sdhci_disable_irq_wakeups() since it will be set by
+  * sdhci_enable_card_detection() or sdhci_init().
+  */
+-void sdhci_enable_irq_wakeups(struct sdhci_host *host)
++static bool sdhci_enable_irq_wakeups(struct sdhci_host *host)
+ {
++	u8 mask = SDHCI_WAKE_ON_INSERT | SDHCI_WAKE_ON_REMOVE |
++		  SDHCI_WAKE_ON_INT;
++	u32 irq_val = 0;
++	u8 wake_val = 0;
+ 	u8 val;
+-	u8 mask = SDHCI_WAKE_ON_INSERT | SDHCI_WAKE_ON_REMOVE
+-			| SDHCI_WAKE_ON_INT;
+-	u32 irq_val = SDHCI_INT_CARD_INSERT | SDHCI_INT_CARD_REMOVE |
+-		      SDHCI_INT_CARD_INT;
+ 
+-	val = sdhci_readb(host, SDHCI_WAKE_UP_CONTROL);
+-	val |= mask ;
+-	/* Avoid fake wake up */
+-	if (host->quirks & SDHCI_QUIRK_BROKEN_CARD_DETECTION) {
+-		val &= ~(SDHCI_WAKE_ON_INSERT | SDHCI_WAKE_ON_REMOVE);
+-		irq_val &= ~(SDHCI_INT_CARD_INSERT | SDHCI_INT_CARD_REMOVE);
++	if (!(host->quirks & SDHCI_QUIRK_BROKEN_CARD_DETECTION)) {
++		wake_val |= SDHCI_WAKE_ON_INSERT | SDHCI_WAKE_ON_REMOVE;
++		irq_val |= SDHCI_INT_CARD_INSERT | SDHCI_INT_CARD_REMOVE;
+ 	}
++
++	wake_val |= SDHCI_WAKE_ON_INT;
++	irq_val |= SDHCI_INT_CARD_INT;
++
++	val = sdhci_readb(host, SDHCI_WAKE_UP_CONTROL);
++	val &= ~mask;
++	val |= wake_val;
+ 	sdhci_writeb(host, val, SDHCI_WAKE_UP_CONTROL);
++
+ 	sdhci_writel(host, irq_val, SDHCI_INT_ENABLE);
++
++	host->irq_wake_enabled = !enable_irq_wake(host->irq);
++
++	return host->irq_wake_enabled;
+ }
+-EXPORT_SYMBOL_GPL(sdhci_enable_irq_wakeups);
+ 
+ static void sdhci_disable_irq_wakeups(struct sdhci_host *host)
+ {
+@@ -2936,6 +2944,10 @@ static void sdhci_disable_irq_wakeups(struct sdhci_host *host)
+ 	val = sdhci_readb(host, SDHCI_WAKE_UP_CONTROL);
+ 	val &= ~mask;
+ 	sdhci_writeb(host, val, SDHCI_WAKE_UP_CONTROL);
++
++	disable_irq_wake(host->irq);
++
++	host->irq_wake_enabled = false;
+ }
+ 
+ int sdhci_suspend_host(struct sdhci_host *host)
+@@ -2944,15 +2956,14 @@ int sdhci_suspend_host(struct sdhci_host *host)
+ 
+ 	mmc_retune_timer_stop(host->mmc);
+ 
+-	if (!device_may_wakeup(mmc_dev(host->mmc))) {
++	if (!device_may_wakeup(mmc_dev(host->mmc)) ||
++	    !sdhci_enable_irq_wakeups(host)) {
+ 		host->ier = 0;
+ 		sdhci_writel(host, 0, SDHCI_INT_ENABLE);
+ 		sdhci_writel(host, 0, SDHCI_SIGNAL_ENABLE);
+ 		free_irq(host->irq, host);
+-	} else {
+-		sdhci_enable_irq_wakeups(host);
+-		enable_irq_wake(host->irq);
+ 	}
++
+ 	return 0;
+ }
+ 
+@@ -2980,15 +2991,14 @@ int sdhci_resume_host(struct sdhci_host *host)
+ 		mmiowb();
+ 	}
+ 
+-	if (!device_may_wakeup(mmc_dev(host->mmc))) {
++	if (host->irq_wake_enabled) {
++		sdhci_disable_irq_wakeups(host);
++	} else {
+ 		ret = request_threaded_irq(host->irq, sdhci_irq,
+ 					   sdhci_thread_irq, IRQF_SHARED,
+ 					   mmc_hostname(host->mmc), host);
+ 		if (ret)
+ 			return ret;
+-	} else {
+-		sdhci_disable_irq_wakeups(host);
+-		disable_irq_wake(host->irq);
+ 	}
+ 
+ 	sdhci_enable_card_detection(host);
+@@ -3387,7 +3397,7 @@ int sdhci_setup_host(struct sdhci_host *host)
+ 	 * available.
+ 	 */
+ 	ret = mmc_regulator_get_supply(mmc);
+-	if (ret == -EPROBE_DEFER)
++	if (ret)
+ 		return ret;
+ 
+ 	DBG("Version:   0x%08x | Present:  0x%08x\n",
+@@ -3912,9 +3922,8 @@ int __sdhci_add_host(struct sdhci_host *host)
+ 	tasklet_init(&host->finish_tasklet,
+ 		sdhci_tasklet_finish, (unsigned long)host);
+ 
+-	setup_timer(&host->timer, sdhci_timeout_timer, (unsigned long)host);
+-	setup_timer(&host->data_timer, sdhci_timeout_data_timer,
+-		    (unsigned long)host);
++	timer_setup(&host->timer, sdhci_timeout_timer, 0);
++	timer_setup(&host->data_timer, sdhci_timeout_data_timer, 0);
+ 
+ 	init_waitqueue_head(&host->buf_ready_int);
+ 
+diff --git a/drivers/mmc/host/sdhci.h b/drivers/mmc/host/sdhci.h
+index 1d7d61e25..c95b0a4a7 100644
+--- a/drivers/mmc/host/sdhci.h
++++ b/drivers/mmc/host/sdhci.h
+@@ -487,6 +487,7 @@ struct sdhci_host {
+ 	bool bus_on;		/* Bus power prevents runtime suspend */
+ 	bool preset_enabled;	/* Preset is enabled */
+ 	bool pending_reset;	/* Cmd/data reset is pending */
++	bool irq_wake_enabled;	/* IRQ wakeup is enabled */
+ 
+ 	struct mmc_request *mrqs_done[SDHCI_MAX_MRQS];	/* Requests done */
+ 	struct mmc_command *cmd;	/* Current command */
+@@ -721,7 +722,6 @@ void sdhci_enable_sdio_irq(struct mmc_host *mmc, int enable);
+ #ifdef CONFIG_PM
+ int sdhci_suspend_host(struct sdhci_host *host);
+ int sdhci_resume_host(struct sdhci_host *host);
+-void sdhci_enable_irq_wakeups(struct sdhci_host *host);
+ int sdhci_runtime_suspend_host(struct sdhci_host *host);
+ int sdhci_runtime_resume_host(struct sdhci_host *host);
+ #endif
