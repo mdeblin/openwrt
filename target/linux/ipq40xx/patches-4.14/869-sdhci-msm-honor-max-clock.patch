@@ -1,30 +1,24 @@
-From 76dd5b6b0cfac1ed830f528cc09a7480fdebebd4 Mon Sep 17 00:00:00 2001
+From 6bf8afcdab1c53c9b1104e9e701b1b770b818c01 Mon Sep 17 00:00:00 2001
 From: Robert Marko <robimarko@gmail.com>
-Date: Thu, 10 May 2018 20:45:58 +0200
-Subject: [PATCH] mmc: sdhci-msm: revert:Boost controller core clock
+Date: Thu, 10 May 2018 22:28:52 +0200
+Subject: [PATCH] mmc: sdhci-msm: Use max-frequency property
 
-Revert commit 951b8c875ac905aa9d348c825c380e7ce66c0f62
-Boost controller core clock
-
-It forces 400MHz as the clock and this can cause critical issues.
-It does not honor the mmc node max-clock
+Use the passed max-frequency property from sdhci node instead of using 400MHz as default.
+That behaviour breaks stuff
 ---
- drivers/mmc/host/sdhci-msm.c | 5 -----
- 1 file changed, 5 deletions(-)
+ drivers/mmc/host/sdhci-msm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/mmc/host/sdhci-msm.c b/drivers/mmc/host/sdhci-msm.c
-index 92c483ec6..afb76a742 100644
+index 92c483ec6..bca95a4aa 100644
 --- a/drivers/mmc/host/sdhci-msm.c
 +++ b/drivers/mmc/host/sdhci-msm.c
-@@ -1189,11 +1189,6 @@ static int sdhci_msm_probe(struct platform_device *pdev)
- 		dev_warn(&pdev->dev, "TCXO clk not present (%d)\n", ret);
+@@ -1190,7 +1190,7 @@ static int sdhci_msm_probe(struct platform_device *pdev)
  	}
  
--	/* Vote for maximum clock rate for maximum performance */
+ 	/* Vote for maximum clock rate for maximum performance */
 -	ret = clk_set_rate(msm_host->clk, INT_MAX);
--	if (ret)
--		dev_warn(&pdev->dev, "core clock boost failed\n");
--
- 	ret = clk_prepare_enable(msm_host->clk);
++	ret = clk_set_rate(host->mmc->f_max);
  	if (ret)
- 		goto pclk_disable;
+ 		dev_warn(&pdev->dev, "core clock boost failed\n");
+ 
