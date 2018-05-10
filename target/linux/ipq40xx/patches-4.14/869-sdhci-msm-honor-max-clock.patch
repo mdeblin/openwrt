@@ -1,0 +1,24 @@
+From e31b63588cd9ff30687e2dac26c6cdaaa6f4331b Mon Sep 17 00:00:00 2001
+From: Robert Marko <robimarko@gmail.com>
+Date: Thu, 10 May 2018 20:17:03 +0200
+Subject: [PATCH] sdhci-msm: Honor max-clock device tree binding
+
+Currently sdhci-msm does not honor the max-clock property and always tries to force 400MHz which can easily fail.
+So patch it to honor  max-clock in case it was defined
+---
+ drivers/mmc/host/sdhci-msm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/mmc/host/sdhci-msm.c b/drivers/mmc/host/sdhci-msm.c
+index 92c483ec6..475296e43 100644
+--- a/drivers/mmc/host/sdhci-msm.c
++++ b/drivers/mmc/host/sdhci-msm.c
+@@ -1190,7 +1190,7 @@ static int sdhci_msm_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	/* Vote for maximum clock rate for maximum performance */
+-	ret = clk_set_rate(msm_host->clk, INT_MAX);
++	ret = clk_set_rate(clk, (host->mmc->f_max > 0) ? host->mmc->f_max : INT_MAX);
+ 	if (ret)
+ 		dev_warn(&pdev->dev, "core clock boost failed\n");
+ 
