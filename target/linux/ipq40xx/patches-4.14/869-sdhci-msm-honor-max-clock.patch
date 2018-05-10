@@ -18,7 +18,7 @@ index 92c483ec6..475296e43 100644
  
  	/* Vote for maximum clock rate for maximum performance */
 -	ret = clk_set_rate(msm_host->clk, INT_MAX);
-+	ret = clk_set_rate(clk, (host->mmc->f_max > 0) ? host->mmc->f_max : INT_MAX);
++	ret = clk_set_rate(clk, host->mmc->f_max ? : INT_MAX);
  	if (ret)
  		dev_warn(&pdev->dev, "core clock boost failed\n");
  
