@@ -1,24 +1,33 @@
-From 6bf8afcdab1c53c9b1104e9e701b1b770b818c01 Mon Sep 17 00:00:00 2001
+From 3b70858bf5abfe306d12e2c6cd1dfd1d89d99bef Mon Sep 17 00:00:00 2001
 From: Robert Marko <robimarko@gmail.com>
-Date: Thu, 10 May 2018 22:28:52 +0200
+Date: Thu, 10 May 2018 22:47:32 +0200
 Subject: [PATCH] mmc: sdhci-msm: Use max-frequency property
 
 Use the passed max-frequency property from sdhci node instead of using 400MHz as default.
 That behaviour breaks stuff
 ---
- drivers/mmc/host/sdhci-msm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/mmc/host/sdhci-msm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/mmc/host/sdhci-msm.c b/drivers/mmc/host/sdhci-msm.c
-index 92c483ec6..bca95a4aa 100644
+index 92c483ec6..cb237f879 100644
 --- a/drivers/mmc/host/sdhci-msm.c
 +++ b/drivers/mmc/host/sdhci-msm.c
+@@ -1151,7 +1151,7 @@ static int sdhci_msm_probe(struct platform_device *pdev)
+ 	msm_host->bus_clk = devm_clk_get(&pdev->dev, "bus");
+ 	if (!IS_ERR(msm_host->bus_clk)) {
+ 		/* Vote for max. clk rate for max. performance */
+-		ret = clk_set_rate(msm_host->bus_clk, INT_MAX);
++		ret = clk_set_rate(host->mmc, f_max);
+ 		if (ret)
+ 			goto pltfm_free;
+ 		ret = clk_prepare_enable(msm_host->bus_clk);
 @@ -1190,7 +1190,7 @@ static int sdhci_msm_probe(struct platform_device *pdev)
  	}
  
  	/* Vote for maximum clock rate for maximum performance */
 -	ret = clk_set_rate(msm_host->clk, INT_MAX);
-+	ret = clk_set_rate(host->mmc->f_max);
++	ret = clk_set_rate(host->mmc, f_max);
  	if (ret)
  		dev_warn(&pdev->dev, "core clock boost failed\n");
  
