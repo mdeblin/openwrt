@@ -1,14 +1,14 @@
-From e72796f1b7b40f48d516bcb562cadb44e2c64094 Mon Sep 17 00:00:00 2001
+From 07579e2c40e31efadd6c950326600dd66c0faf91 Mon Sep 17 00:00:00 2001
 From: Robert Marko <robimarko@gmail.com>
-Date: Fri, 11 May 2018 14:31:27 +0200
-Subject: [PATCH] Update sdhci-msm.c Update sdhci-msm.c
+Date: Fri, 11 May 2018 14:40:10 +0200
+Subject: [PATCH] Update sdhci-msm.c Update sdhci-msm.c Update sdhci-msm.c
 
 ---
- drivers/mmc/host/sdhci-msm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/mmc/host/sdhci-msm.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/mmc/host/sdhci-msm.c b/drivers/mmc/host/sdhci-msm.c
-index 92c483ec6..57f28294c 100644
+index 92c483ec6..7df0cad9c 100644
 --- a/drivers/mmc/host/sdhci-msm.c
 +++ b/drivers/mmc/host/sdhci-msm.c
 @@ -167,7 +167,7 @@ static void msm_set_clock_rate_for_bus_mode(struct sdhci_host *host,
@@ -20,6 +20,15 @@ index 92c483ec6..57f28294c 100644
  	if (rc) {
  		pr_err("%s: Failed to set clock at rate %u at timing %d\n",
  		       mmc_hostname(host->mmc), clock,
+@@ -1151,7 +1151,7 @@ static int sdhci_msm_probe(struct platform_device *pdev)
+ 	msm_host->bus_clk = devm_clk_get(&pdev->dev, "bus");
+ 	if (!IS_ERR(msm_host->bus_clk)) {
+ 		/* Vote for max. clk rate for max. performance */
+-		ret = clk_set_rate(msm_host->bus_clk, INT_MAX);
++		ret = clk_set_rate(msm_host->bus_clk, 192000000);
+ 		if (ret)
+ 			goto pltfm_free;
+ 		ret = clk_prepare_enable(msm_host->bus_clk);
 @@ -1190,7 +1190,7 @@ static int sdhci_msm_probe(struct platform_device *pdev)
  	}
  
