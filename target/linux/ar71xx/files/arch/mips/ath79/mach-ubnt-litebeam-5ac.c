@@ -70,6 +70,9 @@ static void __init ubnt_litebeam_5ac_23_setup(void)
 	ath79_eth0_data.speed = SPEED_1000;
 	ath79_eth0_data.phy_mask = BIT(4);
 	ath79_init_mac(ath79_eth0_data.mac_addr, mac, 0);
+	ath79_eth0_pll_data.pll_1000 = 0xa6000000;
+	ath79_eth0_pll_data.pll_100 = 0xa0000101;
+	ath79_eth0_pll_data.pll_10 = 0x80001313;
 	ath79_register_eth(0);
 	ath79_register_pci();
 }
