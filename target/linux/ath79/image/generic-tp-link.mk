@@ -79,15 +79,19 @@ $(Device/tplink)
 endef
 
 define Device/tl-cpe210-v2
-  $(Device/tplink-8mlzma)
   ATH_SOC := qca9533
   DEVICE_TITLE := TP-LINK CPE210 v2
   DEVICE_PACKAGES := rssileds
   TPLINK_BOARD_ID := CPE210V2
   TPLINK_HWID := 0x0
   TPLINK_HWREV := 0
+  LOADER_TYPE := elf
   IMAGE_SIZE := 7680k
+  TPLINK_HEADER_VERSION := 1
   KERNEL := kernel-bin | append-dtb | lzma | tplink-v1-header
+  IMAGES := sysupgrade.bin factory.bin
+  IMAGE/sysupgrade.bin := append-rootfs | tplink-safeloader sysupgrade
+  IMAGE/factory.bin := append-rootfs | tplink-safeloader factory
   SUPPORTED_DEVICES := tplink,tl-cpe-210-v2 tl-cpe-210-v2
 endef
 TARGET_DEVICES += tl-cpe210-v2
