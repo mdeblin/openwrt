@@ -103,7 +103,7 @@
 				read-only;
 			};
 
-			partition@30000 {
+			product-info:	partition@30000 {
 				label = "product-info";
 				reg = <0x030000 0x10000>;
 				read-only;
@@ -141,7 +141,7 @@
 &eth0 {
 	status = "okay";
 
-	mtd-mac-address = <&uboot 0x1fc00>;
+	mtd-mac-address = <&product-info 0x8>;
 	phy-handle = <&phy4>;
 	phy-mode = "mii";
 
@@ -154,5 +154,5 @@
 &wmac {
 	status = "okay";
 	mtd-cal-data = <&ART 0x1000>;
-	mtd-mac-address = <&uboot 0x1fc00>;
+	mtd-mac-address = <&product-info 0x8>;
 };
