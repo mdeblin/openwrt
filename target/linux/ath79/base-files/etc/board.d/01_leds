@@ -21,7 +21,7 @@ case "$board" in
 "glinet,ar150")
 	ucidef_set_led_wlan "wlan" "WLAN" "gl-ar150:orange:wlan" "phy0tpt"
 	;;
-"tplink,cpe-210-v2")
+"tplink,tl-cpe-210-v2")
 	ucidef_set_led_netdev "lan" "LAN" "tp-link:green:lan" "eth0"
 	ucidef_set_rssimon "wlan0" "200000" "1"
 	ucidef_set_led_rssi "rssilow" "RSSILOW" "tp-link:green:link1" "wlan0" "1" "100"
