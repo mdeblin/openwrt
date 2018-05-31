@@ -79,7 +79,7 @@ $(Device/tplink)
 endef
 
 define Device/tl-cpe210-v2
-  $(Device/tplink)
+  $(Device/tplink-8mlzma)
   ATH_SOC := qca9533
   DEVICE_TITLE := TP-LINK CPE210 v2
   DEVICE_PACKAGES := rssileds
