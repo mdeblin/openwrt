@@ -7,7 +7,7 @@
 #include "qca9533.dtsi"
 
 / {
-	compatible = "tplink,cpe-210-v2", "qca,qca9533";
+	compatible = "tplink,tl-cpe-210-v2", "qca,qca9533";
 	model = "TP-LINK CPE210 v2";
 
 	memory@0 {
