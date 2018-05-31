@@ -65,6 +65,22 @@
 			debounce-interval = <60>;
 		};
 	};
+
+	gpio-export {
+		compatible = "gpio-export";
+		#size-cells = <0>;
+
+		gpio_lna0 {
+			gpio-export,name = "tp-link:lna0";
+			gpio-export,output = <1>;
+			gpios = <&gpio 18 GPIO_ACTIVE_HIGH>;
+		};
+		gpio_lna1 {
+			gpio-export,name = "tp-link:lna1";
+			gpio-export,output = <1>;
+			gpios = <&gpio 19 GPIO_ACTIVE_HIGH>;
+		};
+	};
 };
 
 &ref {
