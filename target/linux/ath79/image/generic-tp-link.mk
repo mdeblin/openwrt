@@ -78,6 +78,20 @@ $(Device/tplink)
   IMAGE_SIZE := 7936k
 endef
 
+define Device/tl-cpe210-v2
+  $(Device/tplink)
+  ATH_SOC := qca9533
+  DEVICE_TITLE := TP-LINK CPE210 v2
+  DEVICE_PACKAGES := rssileds
+  TPLINK_BOARD_ID := CPE210V2
+  TPLINK_HWID := 0x0
+  TPLINK_HWREV := 0
+  IMAGE_SIZE := 7680k
+  KERNEL := kernel-bin | append-dtb | lzma | tplink-v1-header
+  SUPPORTED_DEVICES := tplink,tl-cpe-210-v2 tl-cpe-210-v2
+endef
+TARGET_DEVICES += tl-cpe210-v2
+
 define Device/tl-wr1043nd-v1
   $(Device/tplink-8m)
   ATH_SOC := ar9132
