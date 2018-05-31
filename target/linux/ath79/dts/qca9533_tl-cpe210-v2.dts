@@ -141,7 +141,7 @@
 &eth0 {
 	status = "okay";
 
-	mtd-mac-address = <&product-info 0x8>;
+	mtd-mac-address = <&info 0x8>;
 	phy-handle = <&phy4>;
 	phy-mode = "mii";
 
@@ -154,5 +154,5 @@
 &wmac {
 	status = "okay";
 	mtd-cal-data = <&ART 0x1000>;
-	mtd-mac-address = <&product-info 0x8>;
+	mtd-mac-address = <&info 0x8>;
 };
