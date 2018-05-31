@@ -8,7 +8,7 @@
 
 / {
 	compatible = "tplink,cpe-210-v2", "qca,qca9533";
-	model = "TP-Link CPE210 Version 2";
+	model = "TP-LINK CPE210 v2";
 
 	memory@0 {
 		device_type = "memory";
