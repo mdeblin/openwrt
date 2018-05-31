@@ -91,7 +91,7 @@
 			#address-cells = <1>;
 			#size-cells = <1>;
 
-			uboot:	partition@0 {
+			uboot: partition@0 {
 				label = "u-boot";
 				reg = <0x000000 0x020000>;
 				read-only;
@@ -103,7 +103,7 @@
 				read-only;
 			};
 
-			product-info:	partition@30000 {
+			product-info: partition@30000 {
 				label = "product-info";
 				reg = <0x030000 0x10000>;
 				read-only;
@@ -120,7 +120,7 @@
 				read-only;
 			};
 
-			ART:	partition@7f0000 {
+			ART: partition@7f0000 {
 				label = "ART";
 				reg = <0x7f0000 0x10000>;
 				read-only;
