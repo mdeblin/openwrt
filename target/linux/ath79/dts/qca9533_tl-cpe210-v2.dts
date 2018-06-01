@@ -28,25 +28,25 @@
 			default-state = "off";
 		};
 
-		link1 {
+		wlan1 {
 			label = "tp-link:green:link1";
 			gpios = <&gpio 13 GPIO_ACTIVE_LOW>;
 			default-state = "off";
 		};
 
-		link2 {
+		wlan2 {
 			label = "tp-link:green:link2";
 			gpios = <&gpio 14 GPIO_ACTIVE_LOW>;
 			default-state = "off";
 		};
 
-		link3 {
+		wlan3 {
 			label = "tp-link:green:link3";
 			gpios = <&gpio 14 GPIO_ACTIVE_LOW>;
 			default-state = "off";
 		};
 
-		link4 {
+		wlan4 {
 			label = "tp-link:green:link4";
 			gpios = <&gpio 15 GPIO_ACTIVE_LOW>;
 			default-state = "off";
@@ -65,22 +65,6 @@
 			debounce-interval = <60>;
 		};
 	};
-
-	/*gpio-export {
-		compatible = "gpio-export";
-		#size-cells = <0>;
-
-		gpio_lna0 {
-			gpio-export,name = "tp-link:lna0";
-			gpio-export,output = <1>;
-			gpios = <&gpio 18 GPIO_ACTIVE_HIGH>;
-		};
-		gpio_lna1 {
-			gpio-export,name = "tp-link:lna1";
-			gpio-export,output = <1>;
-			gpios = <&gpio 19 GPIO_ACTIVE_HIGH>;
-		};
-	};*/
 };
 
 &ref {
