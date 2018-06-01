@@ -74,4 +74,7 @@ endif
 ifeq ($(SUBTARGET),tiny)
 include ./tiny-tp-link.mk
 endif
+ifeq ($(SUBTARGET),mikrotik)
+include ./mikrotik.mk
+endif
 $(eval $(call BuildImage))
