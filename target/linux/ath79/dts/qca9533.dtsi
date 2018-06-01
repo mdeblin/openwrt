@@ -80,7 +80,7 @@
 			pinmux: pinmux@1804002c {
 				compatible = "pinctrl-single";
 
-				reg = <0x1804002c 0x40>;
+				reg = <0x1804002c 0x48>;
 
 				#size-cells = <0>;
 
@@ -90,7 +90,9 @@
 				#pinctrl-cells = <2>;
 
 				jtag_disable_pins: pinmux_jtag_disable_pins {
-					pinctrl-single,bits = <0x40 0x2  0x2>;
+					pinctrl-single,bits = <
+						0x40 0x2 0x2
+						>;
 				};
 			};
 
