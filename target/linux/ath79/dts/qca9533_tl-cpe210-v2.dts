@@ -28,13 +28,13 @@
 			default-state = "off";
 		};
 
-		/*wlan1 {
+		wlan1 {
 			label = "tp-link:green:link1";
 			gpios = <&gpio 13 GPIO_ACTIVE_LOW>;
 			default-state = "off";
 		};
 
-		wlan2 {
+		/*wlan2 {
 			label = "tp-link:green:link2";
 			gpios = <&gpio 14 GPIO_ACTIVE_LOW>;
 			default-state = "off";
