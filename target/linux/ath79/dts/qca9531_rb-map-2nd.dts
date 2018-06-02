@@ -63,7 +63,7 @@
 			default-state = "off";
 		};
 		
-		user {
+		user: user {
 			label = "rb:green:user";
 			gpios = <&led_gpio 3 GPIO_ACTIVE_LOW>;
 			default-state = "off";
