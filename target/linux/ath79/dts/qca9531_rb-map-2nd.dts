@@ -154,7 +154,7 @@
 				reg = <0x00f000 0x1000>;
 			};
 			
-			partition@f000 {
+			partition@00f000 {
 				label = "bios";
 				reg = <0x00f000 0x1000>;
 			};
