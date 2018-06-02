@@ -109,6 +109,19 @@
 	status = "okay";
 };
 
+&usb0 {
+	status = "okay";
+
+	hub_port: port@1 {
+		reg = <1>;
+		#trigger-soruce-cells = <0>;
+	};
+};
+
+&usb_phy {
+	status = "okay";
+};
+
 &spi {
 	status = "okay";
 	cs-gpios = <0>, <&gpio 11 0>;
@@ -213,7 +226,7 @@
 };
 
 &wmac {
-	status = "okay";
+	status = "disabled";
 	mtd-cal-data = <&art 0x1000>;
 	mtd-mac-address = <&config 0x10>;
 	mtd-mac-address-increment = <2>;
