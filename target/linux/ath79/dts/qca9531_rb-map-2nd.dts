@@ -19,6 +19,10 @@
 		bootargs = "console=ttyS0,115200n8";
 	};
 
+	aliases {
+		led-status = &user;
+	};
+
 	keys {
 		compatible = "gpio-keys";
 		#address-cells = <1>;
