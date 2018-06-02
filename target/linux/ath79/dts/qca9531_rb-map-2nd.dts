@@ -225,9 +225,9 @@
 	};
 };
 
-&wmac {
-	status = "disabled";
+/*&wmac {
+	status = "okay";
 	mtd-cal-data = <&art 0x1000>;
 	mtd-mac-address = <&config 0x10>;
 	mtd-mac-address-increment = <2>;
-};
+};*/
