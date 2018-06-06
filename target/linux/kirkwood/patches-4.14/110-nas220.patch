@@ -1,0 +1,24 @@
+--- a/arch/arm/boot/dts/kirkwood-blackarmor-nas220.dts
++++ b/arch/arm/boot/dts/kirkwood-blackarmor-nas220.dts
+@@ -154,6 +154,21 @@
+ 
+ &nand {
+ 	status = "okay";
++
++	partition@0 {
++		label = "u-boot";
++		reg = <0x0000000 0xa0000>;
++	};
++
++	partition@a0000 {
++		label = "u-boot environment";
++		reg = <0xa0000 0x10000>;
++	};
++
++	partition@c0000 {
++		label = "ubi";
++		reg = <0xc0000 0x1f40000>;
++	};
+ };
+ 
+ &mdio {
