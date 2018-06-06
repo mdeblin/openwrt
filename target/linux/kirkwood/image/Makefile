@@ -120,6 +120,15 @@ define Device/seagate_goflexhome
 endef
 TARGET_DEVICES += seagate_goflexhome
 
+define Device/seagate_nas220
+  DEVICE_TITLE := Seagate NAS220
+  DEVICE_DTS := kirkwood-blackarmor-nas220
+  BOARD_NAME := nas220
+  SUPPORTED_DEVICES += blackarmor-nas220
+  DEVICE_PACKAGES := kmod-hwmon-adt7475
+endef
+TARGET_DEVICES += seagate_nas220
+
 define Device/zyxel_nsa310b
   DEVICE_TITLE := ZyXEL NSA310b
   DEVICE_DTS := kirkwood-nsa310b
