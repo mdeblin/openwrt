@@ -132,7 +132,7 @@ TARGET_DEVICES += seagate_nas220
 define Device/zyxel_nsa310b
   DEVICE_TITLE := ZyXEL NSA310b
   DEVICE_DTS := kirkwood-nsa310b
-  DEVICE_PACKAGES := kmod-r8169 kmod-gpio-button-hotplug kmod-hwmon-lm85
+  DEVICE_PACKAGES := kmod-r8169 kmod-gpio-button-hotplug kmod-hwmon-core kmod-hwmon-lm85
   BOARD_NAME := nsa310b
 endef
 TARGET_DEVICES += zyxel_nsa310b
