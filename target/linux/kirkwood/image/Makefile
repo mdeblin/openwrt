@@ -123,7 +123,7 @@ TARGET_DEVICES += seagate_goflexhome
 define Device/seagate_nas220
   DEVICE_TITLE := Seagate NAS220
   DEVICE_DTS := kirkwood-blackarmor-nas220
-  BOARD_NAME := nas220
+  BOARD_NAME := blackarmor-nas220
   SUPPORTED_DEVICES += blackarmor-nas220
   DEVICE_PACKAGES := kmod-hwmon-adt7475
 endef
