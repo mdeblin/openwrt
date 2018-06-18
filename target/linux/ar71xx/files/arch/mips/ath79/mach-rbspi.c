@@ -15,6 +15,7 @@
  *  - MikroTik RouterBOARD LHG 5nD
  *  - MikroTik RouterBOARD wAP2nD
  *  - MikroTik RouterBOARD wAP G-5HacT2HnDwAP (wAP AC)
+ *  - MikroTik RouterBOARD wAP R-2nD (wAP R)
  *
  *  Preliminary support for the following hardware
  *  - MikroTik RouterBOARD cAP2nD
@@ -343,6 +344,39 @@ static struct gpio_led rbwap_leds[] __initdata = {
 		.name = "rb:green:wlan",
 		.gpio = RBWAP_GPIO_LED_WLAN,
 		.active_low = 1,
+	},
+};
+
+/* RB wAPR-2nD gpios */
+#define RBWAPR_GPIO_LED_USER		14
+#define RBWAPR_GPIO_LED_1		12
+#define RBWAPR_GPIO_LED_2		13
+#define RBWAPR_GPIO_LED_3		3
+#define RBWAPR_GPIO_PCIE_POWER_OFF	15
+#define RBWAPR_GPIO_LED_CONTROL		10
+#define RBWAPR_GPIO_BTN_RESET		16
+
+static struct gpio_led rbwapr_leds[] __initdata = {
+	{
+		.name = "rb:green:user",
+		.gpio = RBWAPR_GPIO_LED_USER,
+		.active_low = 1,
+	}, {
+		.name = "rb:green:led1",
+		.gpio = RBWAPR_GPIO_LED_1,
+		.active_low = 1,
+	}, {
+		.name = "rb:green:led2",
+		.gpio = RBWAPR_GPIO_LED_2,
+		.active_low = 1,
+	}, {
+		.name = "rb:green:led3",
+		.gpio = RBWAPR_GPIO_LED_3,
+		.active_low = 1,
+	}, {
+		.name = "rb:green:control",
+		.gpio = RBWAPR_GPIO_LED_CONTROL,
+		.active_low = 0,
 	},
 };
 
@@ -946,6 +980,28 @@ static void __init rblhg_setup(void)
 }
 
 /*
+ * Init the wAP R hardware.
+ * The wAPR-2nD has a single ethernet port and PCI-E slot.
+ */
+static void __init rbwapr_setup(void)
+{
+	u32 flags = RBSPI_HAS_WLAN0 | RBSPI_HAS_PCI;
+
+	if (!rbspi_platform_setup())
+		return;
+
+	rbspi_peripherals_setup(flags);
+
+	/* GMAC1 is HW MAC, WLAN0 MAC is HW MAC + 1 */
+	rbspi_network_setup(flags, 0, 1, 0);
+
+	ath79_register_leds_gpio(-1, ARRAY_SIZE(rbwapr_leds), rbwapr_leds);
+
+	/* wAP has a single reset button as GPIO 16 */
+	rbspi_register_reset_button(RBWAP_GPIO_BTN_RESET);
+}
+
+/*
  * Init the wAP hardware.
  * The wAP 2nD has a single ethernet port.
  */
@@ -1122,3 +1178,4 @@ MIPS_MACHINE_NONAME(ATH79_MACH_RB_WAP, "wap-hb", rbwap_setup);
 MIPS_MACHINE_NONAME(ATH79_MACH_RB_CAP, "cap-hb", rbcap_setup);
 MIPS_MACHINE_NONAME(ATH79_MACH_RB_MAP, "map2-hb", rbmap_setup);
 MIPS_MACHINE_NONAME(ATH79_MACH_RB_WAPAC, "wapg-sc", rbwapgsc_setup);
+MIPS_MACHINE_NONAME(ATH79_MACH_RB_WAPR, "wap-lte", rbwapr_setup);
