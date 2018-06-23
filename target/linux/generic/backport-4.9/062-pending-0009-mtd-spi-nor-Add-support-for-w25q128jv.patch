@@ -16,10 +16,10 @@ Signed-off-by: Robert Marko <robimarko@gmail.com>
  spi-nor.c | 5 +++++
  1 file changed, 5 insertions(+)
 
-diff --git a/spi-nor.c b/spi-nor.c
+diff --git a/drivers/mtd/spi-nor/spi-nor.c b/drivers/mtd/spi-nor/spi-nor.c
 index 9a6a6a8..d4983e0 100644
---- a/spi-nor.c
-+++ b/spi-nor.c
+--- a/drivers/mtd/spi-nor/spi-nor.c
++++ b/drivers/mtd/spi-nor/spi-nor.c
 @@ -1149,6 +1149,11 @@ static const struct flash_info spi_nor_ids[] = {
  			SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ |
  			SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB)
