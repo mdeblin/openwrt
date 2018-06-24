@@ -997,8 +997,12 @@ static void __init rbwapr_setup(void)
 
 	ath79_register_leds_gpio(-1, ARRAY_SIZE(rbwapr_leds), rbwapr_leds);
 
+	gpio_request_one(RBWAPR_GPIO_PCIE_POWER_OFF,
+				GPIOF_OUT_INIT_LOW | GPIOF_EXPORT_DIR_FIXED,
+				"PCI power");
+
 	/* wAP has a single reset button as GPIO 16 */
-	rbspi_register_reset_button(RBWAP_GPIO_BTN_RESET);
+	rbspi_register_reset_button(RBWAPR_GPIO_BTN_RESET);
 }
 
 /*
