@@ -982,10 +982,14 @@ static void __init rblhg_setup(void)
 /*
  * Init the wAP R hardware.
  * The wAPR-2nD has a single ethernet port and PCI-E slot.
+ * It does not have USB port connector,but USB port is
+ * connected to the PCI-E slot and used for LTE modems.
+ * This is needed to support the R11e-LTE modem that
+ * LTE kit version ships with.
  */
 static void __init rbwapr_setup(void)
 {
-	u32 flags = RBSPI_HAS_WLAN0 | RBSPI_HAS_PCI;
+	u32 flags = RBSPI_HAS_WLAN0 | RBSPI_HAS_PCI | RBSPI_HAS_USB;
 
 	if (!rbspi_platform_setup())
 		return;
@@ -997,6 +1001,8 @@ static void __init rbwapr_setup(void)
 
 	ath79_register_leds_gpio(-1, ARRAY_SIZE(rbwapr_leds), rbwapr_leds);
 
+	/* PCIE Power OFF GPIO needs to be low to provide
+	   power for the PCI slot */
 	gpio_request_one(RBWAPR_GPIO_PCIE_POWER_OFF,
 				GPIOF_OUT_INIT_LOW | GPIOF_EXPORT_DIR_FIXED,
 				"PCI power");
