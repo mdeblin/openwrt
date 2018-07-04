@@ -164,6 +164,15 @@ define Device/ubnt-unifiac-pro
 endef
 TARGET_DEVICES += ubnt-unifiac-pro
 
+define Device/ubnt-nanobeam-5ac-wa
+  $(Device/ubnt-nanostationacl)
+  DEVICE_TITLE := Ubiquiti NanoBeam 5 AC (WA)
+  DEVICE_PROFILE += UBNTNANOBEAM5ACWA
+  BOARDNAME := UBNT-NANOBEAM-5AC-WA
+  DEVICE_PACKAGES += rssileds
+endef
+TARGET_DEVICES += ubnt-nanobeam-5ac-wa
+
 define Device/ubnt-nanostationacl
   $(Device/ubnt-wa)
   DEVICE_TITLE := Ubiquiti Nanostation AC loco

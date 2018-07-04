@@ -277,6 +277,7 @@ platform_check_image() {
 	mzk-w04nu|\
 	mzk-w300nh|\
 	n5q|\
+	nanobeam-5ac-wa|\
 	nanostationacl|\
 	nanostation-m|\
 	nanostation-m-xw|\

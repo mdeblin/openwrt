@@ -1358,6 +1358,9 @@ ar71xx_board_detect() {
 	*"Tube2H")
 		name="tube2h"
 		;;
+	*"Ubiquiti NanoBeam 5 AC (WA)")
+		name="nanobeam-5ac-wa"
+		;;
 	*"Ubiquiti Nanostation AC loco")
 		name="nanostationacl"
 		;;
