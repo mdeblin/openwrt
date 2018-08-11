@@ -192,7 +192,7 @@ define Device/cpe210-v2
   TPLINK_BOARD_ID := CPE210V2
   TPLINK_HWID := 0x0
   TPLINK_HWREV := 0
-  MTDPARTS := spi0.0:128k(u-boot)ro,64k(partition-table)ro,64k(product-info)ro,7680k(firmware),192k(config)ro,64k(ART)ro
+  MTDPARTS := spi0.0:128k(u-boot)ro,64k(partition-table)ro,64k(product-info)ro,1792k(kernel),5888k(rootfs),192k(config)ro,64k(ART)ro,7680k@0x40000(firmware)
   IMAGE_SIZE := 7680k
   DEVICE_PACKAGES := rssileds
 endef

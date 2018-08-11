@@ -178,7 +178,6 @@ static struct device_info boards[] = {
 		.support_trail = '\xff',
 		.soft_ver = NULL,
 
-		/** We're using a dynamic kernel/rootfs split here */
 		.partitions = {
 			{"fs-uboot", 0x00000, 0x20000},
 			{"partition-table", 0x20000, 0x02000},
@@ -187,7 +186,8 @@ static struct device_info boards[] = {
 			{"device-info", 0x31400, 0x00400},
 			{"signature", 0x32000, 0x00400},
 			{"device-id", 0x33000, 0x00100},
-			{"firmware", 0x40000, 0x770000},
+			{"os-image", 0x40000, 0x1c0000},
+			{"file-system", 0x200000, 0x5b0000},
 			{"soft-version", 0x7b0000, 0x00100},
 			{"support-list", 0x7b1000, 0x01000},
 			{"user-config", 0x7c0000, 0x10000},
