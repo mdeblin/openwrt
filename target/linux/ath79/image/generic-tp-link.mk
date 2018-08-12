@@ -21,6 +21,18 @@ define Device/tplink_archer-c7-v2
 endef
 TARGET_DEVICES += tplink_archer-c7-v2
 
+define Device/tplink_tl-cpe220-v2
+  IMAGE_SIZE := 7680k
+  DEVICE_TITLE := TP-LINK CPE220 v2
+  TPLINK_BOARD_ID := CPE220V2
+  DEVICE_PACKAGES := rssileds
+  LOADER_TYPE := elf
+  KERNEL := kernel-bin | append-dtb | lzma | loader-kernel
+  IMAGES := sysupgrade.bin factory.bin
+  IMAGE/sysupgrade.bin := append-rootfs | tplink-safeloader sysupgrade
+  IMAGE/factory.bin := append-rootfs | tplink-safeloader factory
+endef
+
 define Device/tplink_re450-v2
   $(Device/tplink)
   ATH_SOC := qca9563
