@@ -197,7 +197,7 @@ static struct device_info boards[] = {
 		.last_sysupgrade_partition = "support-list",
 	},
 
-	/** Firmware layout for the CPE210 V2 */
+	/** Firmware layout for the CPE220 V2 */
 	{
 		.id     = "CPE220V2",
 		.vendor = "CPE220(TP-LINK|UN|N300-2|00000000):2.0\r\n",
@@ -222,7 +222,6 @@ static struct device_info boards[] = {
 			{"device-id", 0x33000, 0x00100},
 			{"os-image", 0x40000, 0x170000},
 			{"soft-version", 0x1b0000, 0x00100},
-			{"file-system", 0x200000, 0x5b0000},
 			{"support-list", 0x1b1000, 0x01000},
 			{"file-system", 0x1c0000, 0x600000},
 			{"user-config", 0x7c0000, 0x10000},
