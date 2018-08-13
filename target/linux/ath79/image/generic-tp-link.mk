@@ -22,6 +22,7 @@ endef
 TARGET_DEVICES += tplink_archer-c7-v2
 
 define Device/tplink_tl-cpe220-v2
+  ATH_SOC := ar9344
   IMAGE_SIZE := 7680k
   DEVICE_TITLE := TP-LINK CPE220 v2
   TPLINK_BOARD_ID := CPE220V2
