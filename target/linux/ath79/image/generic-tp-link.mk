@@ -32,6 +32,7 @@ define Device/tplink_tl-cpe220-v2
   IMAGE/sysupgrade.bin := append-rootfs | tplink-safeloader sysupgrade
   IMAGE/factory.bin := append-rootfs | tplink-safeloader factory
 endef
+TARGET_DEVICES += tplink_tl-cpe220-v2
 
 define Device/tplink_re450-v2
   $(Device/tplink)
