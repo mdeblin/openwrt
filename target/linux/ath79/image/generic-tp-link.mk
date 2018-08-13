@@ -25,7 +25,7 @@ define Device/tplink_tl-cpe220-v2
   ATH_SOC := ar9344
   IMAGE_SIZE := 7680k
   DEVICE_TITLE := TP-LINK CPE220 v2
-  TPLINK_BOARD_ID := CPE220V2
+  TPLINK_BOARD_ID := CPE210V2
   DEVICE_PACKAGES := rssileds
   LOADER_TYPE := elf
   KERNEL := kernel-bin | append-dtb | lzma | loader-kernel
