@@ -52,6 +52,13 @@ define Device/ubnt-bz
   ATH_SOC := ar7241
 endef
 
+define Device/ubnt-sw
+  $(Device/ubnt)
+  UBNT_TYPE := SW
+  UBNT_CHIP := ar7240
+  ATH_SOC := ar7242
+endef
+
 define Device/ubnt_bullet-m
   $(Device/ubnt-xm)
   DEVICE_TITLE := Ubiquiti Bullet-M
@@ -147,3 +154,11 @@ define Device/ubnt_routerstation-pro
   UBNT_CHIP := ar7100pro
 endef
 TARGET_DEVICES += ubnt_routerstation-pro
+
+define Device/ubnt_toughswitch-5-poe
+  $(Device/ubnt-sw)
+  DEVICE_TITLE := Ubiquiti Networks Toughswitch 5 POE
+  DEVICE_PACKAGES := -wpad-mini -kmod-ath9k
+  SUPPORTED_DEVICES += ubnt,toughswitch-5-poe toughswitch-5-poe
+endef
+TARGET_DEVICES += ubnt_toughswitch-5-poe
