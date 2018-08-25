@@ -30,14 +30,3 @@ Avoid sending unnecessary READ commands to the chip.
  
  	for (i = 0; i < chip->ecc.total; i++)
  		ecc_code[i] = chip->oob_poi[eccpos[i]];
-@@ -1580,7 +1587,9 @@ static int nand_do_read_ops(struct mtd_i
- 						 __func__, buf);
- 
- read_retry:
--			chip->cmdfunc(mtd, NAND_CMD_READ0, 0x00, page);
-+			if (chip->ecc.mode != NAND_ECC_HW_OOB_FIRST) {
-+				chip->cmdfunc(mtd, NAND_CMD_READ0, 0x00, page);
-+			}
- 
- 			/*
- 			 * Now read the page into the buffer.  Absent an error,
