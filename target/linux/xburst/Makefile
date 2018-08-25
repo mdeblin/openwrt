@@ -12,7 +12,7 @@ BOARDNAME:=Ingenic XBurst
 FEATURES:=targz nand ubifs audio source-only
 SUBTARGETS:=qi_lb60
 
-KERNEL_PATCHVER:=3.18
+KERNEL_PATCHVER:=4.14
 
 DEVICE_TYPE:=other
 
