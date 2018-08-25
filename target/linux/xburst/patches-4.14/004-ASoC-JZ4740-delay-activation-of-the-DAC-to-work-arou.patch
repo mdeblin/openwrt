@@ -12,7 +12,7 @@ which (I hope) will be done eventually.
 
 --- a/sound/soc/codecs/jz4740.c
 +++ b/sound/soc/codecs/jz4740.c
-@@ -249,12 +249,15 @@ static int jz4740_codec_set_bias_level(s
+@@ -248,12 +248,15 @@ static int jz4740_codec_set_bias_level(s
  	case SND_SOC_BIAS_ON:
  		break;
  	case SND_SOC_BIAS_PREPARE:

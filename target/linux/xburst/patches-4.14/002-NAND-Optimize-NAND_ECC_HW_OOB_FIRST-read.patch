@@ -10,7 +10,7 @@ Avoid sending unnecessary READ commands to the chip.
 
 --- a/drivers/mtd/nand/nand_base.c
 +++ b/drivers/mtd/nand/nand_base.c
-@@ -1365,9 +1365,16 @@ static int nand_read_page_hwecc_oob_firs
+@@ -1686,9 +1686,16 @@ static int nand_read_page_hwecc_oob_firs
  	unsigned int max_bitflips = 0;
  
  	/* Read the OOB area first */
@@ -28,5 +28,5 @@ Avoid sending unnecessary READ commands to the chip.
 +		chip->cmdfunc(mtd, NAND_CMD_READ0, 0, page);
 +	}
  
- 	for (i = 0; i < chip->ecc.total; i++)
- 		ecc_code[i] = chip->oob_poi[eccpos[i]];
+ 	ret = mtd_ooblayout_get_eccbytes(mtd, ecc_code, chip->oob_poi, 0,
+ 					 chip->ecc.total);

@@ -18,7 +18,7 @@ Signed-off-by: Lars-Peter Clausen <lars@metafoo.de>
 
 --- a/drivers/video/backlight/Kconfig
 +++ b/drivers/video/backlight/Kconfig
-@@ -59,6 +59,13 @@ config LCD_LTV350QV
+@@ -61,6 +61,13 @@ config LCD_LTV350QV
  
  	  The LTV350QV panel is present on all ATSTK1000 boards.
  
@@ -34,7 +34,7 @@ Signed-off-by: Lars-Peter Clausen <lars@metafoo.de>
  	depends on SPI
 --- a/drivers/video/backlight/Makefile
 +++ b/drivers/video/backlight/Makefile
-@@ -5,6 +5,7 @@ obj-$(CONFIG_LCD_CLASS_DEVICE)		+= lcd.o
+@@ -6,6 +6,7 @@ obj-$(CONFIG_LCD_CLASS_DEVICE)		+= lcd.o
  obj-$(CONFIG_LCD_CORGI)			+= corgi_lcd.o
  obj-$(CONFIG_LCD_HP700)			+= jornada720_lcd.o
  obj-$(CONFIG_LCD_HX8357)		+= hx8357.o

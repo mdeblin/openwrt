@@ -15,11 +15,9 @@ Signed-off-by: Robert Marko <robimarko@gmail.com>
  drivers/rtc/rtc-jz4740.c | 9 +++++++++
  1 file changed, 9 insertions(+)
 
-diff --git a/drivers/rtc/rtc-jz4740.c b/drivers/rtc/rtc-jz4740.c
-index 64989aff..7be4c022 100644
 --- a/drivers/rtc/rtc-jz4740.c
 +++ b/drivers/rtc/rtc-jz4740.c
-@@ -342,6 +342,15 @@ static int jz4740_rtc_probe(struct platform_device *pdev)
+@@ -342,6 +342,15 @@ static int jz4740_rtc_probe(struct platf
  		return PTR_ERR(rtc->clk);
  	}
  
@@ -35,6 +33,3 @@ index 64989aff..7be4c022 100644
  	spin_lock_init(&rtc->lock);
  
  	platform_set_drvdata(pdev, rtc);
--- 
-2.17.1
-
