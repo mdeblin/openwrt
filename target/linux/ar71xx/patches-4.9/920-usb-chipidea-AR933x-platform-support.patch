@@ -38,12 +38,12 @@
 +	struct ci_hdrc_platform_data ci_pdata;
 +	bool host_mode = true;
 +
-+	if (soc_is_ar933x())
++	/*if (soc_is_ar933x())
 +		host_mode = ath79_reset_rr(AR933X_RESET_REG_BOOTSTRAP) &
 +			    AR933X_BOOTSTRAP_USB_MODE_HOST;
 +	else
 +		host_mode = !(ath79_reset_rr(AR934X_RESET_REG_BOOTSTRAP) &
-+			      AR934X_BOOTSTRAP_USB_MODE_DEVICE);
++			      AR934X_BOOTSTRAP_USB_MODE_DEVICE);*/
 +
 +	if (host_mode) {
 +		ath79_usb_register("ehci-platform", bus_id,
