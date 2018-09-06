@@ -1,7 +1,7 @@
-From e113c70d0d42b01cb45abb3aed913a166503c676 Mon Sep 17 00:00:00 2001
+From 44a834bb0d0e8c1ced5556348fe9d36e6ec7a8bc Mon Sep 17 00:00:00 2001
 From: Robert Marko <robimarko@gmail.com>
-Date: Thu, 6 Sep 2018 17:16:17 +0000
-Subject: [PATCH] 4.18-Backport bcm2835-rpi-zero-w.dts
+Date: Thu, 6 Sep 2018 21:24:33 +0000
+Subject: [PATCH 09/14] 4.18-Backport bcm2835-rpi-zero-w.dts changes
 
 Backport bcm2835-rpi-zero-w.dts changes from 4.18.6
 
@@ -11,7 +11,7 @@ Signed-off-by: Robert Marko <robimarko@gmail.com>
  1 file changed, 14 insertions(+), 2 deletions(-)
 
 diff --git a/arch/arm/boot/dts/bcm2835-rpi-zero-w.dts b/arch/arm/boot/dts/bcm2835-rpi-zero-w.dts
-index b8565fc3..3fa0a753 100644
+index b8565fc3..b7f79f1c 100644
 --- a/arch/arm/boot/dts/bcm2835-rpi-zero-w.dts
 +++ b/arch/arm/boot/dts/bcm2835-rpi-zero-w.dts
 @@ -12,7 +12,7 @@
@@ -29,21 +29,20 @@ index b8565fc3..3fa0a753 100644
  	pinctrl-names = "default";
 -	pinctrl-0 = <&uart0_gpio14>;
 +	pinctrl-0 = <&uart0_gpio32 &uart0_ctsrts_gpio30>;
- 	status = "okay";
++	status = "okay";
 +
 +	bluetooth {
 +		compatible = "brcm,bcm43438-bt";
 +		max-speed = <2000000>;
 +		shutdown-gpios = <&gpio 45 GPIO_ACTIVE_HIGH>;
 +	};
- };
++};
 +
 +&uart1 {
 +	pinctrl-names = "default";
 +	pinctrl-0 = <&uart1_gpio14>;
-+	status = "okay";
-+};
-\ No newline at end of file
+ 	status = "okay";
+ };
 -- 
 2.17.1
 

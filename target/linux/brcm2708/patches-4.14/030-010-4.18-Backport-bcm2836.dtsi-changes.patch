@@ -1,17 +1,17 @@
-From b7d2cb81eb6eae793740d195a30bf4503e16713b Mon Sep 17 00:00:00 2001
+From 857b86f15e335ca3039748fc96da436a149ff33c Mon Sep 17 00:00:00 2001
 From: Robert Marko <robimarko@gmail.com>
-Date: Thu, 6 Sep 2018 17:17:19 +0000
-Subject: [PATCH] 4.18-Backport bcm2836.dtsi changes
+Date: Thu, 6 Sep 2018 21:25:05 +0000
+Subject: [PATCH 10/14] 4.18-Backport bcm2836.dtsi changes
 
 Backport bcm2836.dtsi changes from 4.18.6
 
 Signed-off-by: Robert Marko <robimarko@gmail.com>
 ---
- arch/arm/boot/dts/bcm2836.dtsi | 24 ++++++++++++------------
- 1 file changed, 12 insertions(+), 12 deletions(-)
+ arch/arm/boot/dts/bcm2836.dtsi | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
 
 diff --git a/arch/arm/boot/dts/bcm2836.dtsi b/arch/arm/boot/dts/bcm2836.dtsi
-index 168c002f..3e9e39c0 100644
+index 168c002f..c933e841 100644
 --- a/arch/arm/boot/dts/bcm2836.dtsi
 +++ b/arch/arm/boot/dts/bcm2836.dtsi
 @@ -13,24 +13,24 @@
@@ -58,13 +58,6 @@ index 168c002f..3e9e39c0 100644
  };
  
  &cpu_thermal {
-@@ -87,4 +87,4 @@
- &thermal {
- 	compatible = "brcm,bcm2836-thermal";
- 	status = "okay";
--};
-+};
-\ No newline at end of file
 -- 
 2.17.1
 

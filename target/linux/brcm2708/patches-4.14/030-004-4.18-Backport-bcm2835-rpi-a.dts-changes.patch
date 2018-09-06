@@ -1,17 +1,17 @@
-From a2e265ccd2e48209c4502d23eb56837f68235f00 Mon Sep 17 00:00:00 2001
+From 7b84a7c61d1187ff0f86c619ed96224fbbf3f5e7 Mon Sep 17 00:00:00 2001
 From: Robert Marko <robimarko@gmail.com>
-Date: Thu, 6 Sep 2018 17:12:02 +0000
-Subject: [PATCH] 4.18-Backport bcm2835-rpi-a.dts changes
+Date: Thu, 6 Sep 2018 21:21:21 +0000
+Subject: [PATCH 04/14] 4.18-Backport bcm2835-rpi-a.dts changes
 
-Backport bcm2835-rpi-a.dts from 4.18.6
+Backport bcm2835-rpi-a.dts changes from 4.18
 
 Signed-off-by: Robert Marko <robimarko@gmail.com>
 ---
- arch/arm/boot/dts/bcm2835-rpi-a.dts | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ arch/arm/boot/dts/bcm2835-rpi-a.dts | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
 diff --git a/arch/arm/boot/dts/bcm2835-rpi-a.dts b/arch/arm/boot/dts/bcm2835-rpi-a.dts
-index 7a960a04..29610092 100644
+index 7a960a04..067d1f07 100644
 --- a/arch/arm/boot/dts/bcm2835-rpi-a.dts
 +++ b/arch/arm/boot/dts/bcm2835-rpi-a.dts
 @@ -10,7 +10,7 @@
@@ -23,7 +23,7 @@ index 7a960a04..29610092 100644
  		};
  	};
  };
-@@ -96,8 +96,14 @@
+@@ -96,6 +96,12 @@
  	hpd-gpios = <&gpio 46 GPIO_ACTIVE_HIGH>;
  };
  
@@ -36,10 +36,6 @@ index 7a960a04..29610092 100644
  &uart0 {
  	pinctrl-names = "default";
  	pinctrl-0 = <&uart0_gpio14>;
- 	status = "okay";
--};
-+};
-\ No newline at end of file
 -- 
 2.17.1
 
