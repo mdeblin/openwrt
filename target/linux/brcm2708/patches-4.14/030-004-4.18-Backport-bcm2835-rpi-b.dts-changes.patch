@@ -1,0 +1,45 @@
+From 6730f0a7290d1447a3127ea0ba8afb63f7526a76 Mon Sep 17 00:00:00 2001
+From: Robert Marko <robimarko@gmail.com>
+Date: Thu, 6 Sep 2018 17:13:47 +0000
+Subject: [PATCH] 4.18-Backport bcm2835-rpi-b.dts changes
+
+Backport bcm2835-rpi-b.dts changes from 4.18.6
+
+Signed-off-by: Robert Marko <robimarko@gmail.com>
+---
+ arch/arm/boot/dts/bcm2835-rpi-b.dts | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm/boot/dts/bcm2835-rpi-b.dts b/arch/arm/boot/dts/bcm2835-rpi-b.dts
+index cca4a75a..44a1b750 100644
+--- a/arch/arm/boot/dts/bcm2835-rpi-b.dts
++++ b/arch/arm/boot/dts/bcm2835-rpi-b.dts
+@@ -11,7 +11,7 @@
+ 
+ 	leds {
+ 		act {
+-			gpios = <&gpio 16 1>;
++			gpios = <&gpio 16 GPIO_ACTIVE_LOW>;
+ 		};
+ 	};
+ };
+@@ -91,8 +91,14 @@
+ 	hpd-gpios = <&gpio 46 GPIO_ACTIVE_HIGH>;
+ };
+ 
++&pwm {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pwm0_gpio40 &pwm1_gpio45>;
++	status = "okay";
++};
++
+ &uart0 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&uart0_gpio14>;
+ 	status = "okay";
+-};
++};
+\ No newline at end of file
+-- 
+2.17.1
+

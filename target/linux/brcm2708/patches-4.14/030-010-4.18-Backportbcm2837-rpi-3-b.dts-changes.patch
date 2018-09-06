@@ -1,0 +1,102 @@
+From 4f9a2a4ca811a0be949d150c6403a58202162cd5 Mon Sep 17 00:00:00 2001
+From: Robert Marko <robimarko@gmail.com>
+Date: Thu, 6 Sep 2018 17:21:25 +0000
+Subject: [PATCH] 4.18-Backportbcm2837-rpi-3-b.dts changes
+
+Backport bcm2837-rpi-3-b.dts changes from 4.18.6
+
+Signed-off-by: Robert Marko <robimarko@gmail.com>
+---
+ arch/arm/boot/dts/bcm2837-rpi-3-b.dts | 50 +++++++++++++++++++++++++--
+ 1 file changed, 48 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm/boot/dts/bcm2837-rpi-3-b.dts b/arch/arm/boot/dts/bcm2837-rpi-3-b.dts
+index eb1a28da..f545e355 100644
+--- a/arch/arm/boot/dts/bcm2837-rpi-3-b.dts
++++ b/arch/arm/boot/dts/bcm2837-rpi-3-b.dts
+@@ -20,9 +20,41 @@
+ 
+ 	leds {
+ 		act {
+-			gpios = <&gpio 47 0>;
++			gpios = <&expgpio 2 GPIO_ACTIVE_HIGH>;
+ 		};
+ 	};
++
++	wifi_pwrseq: wifi-pwrseq {
++		compatible = "mmc-pwrseq-simple";
++		reset-gpios = <&expgpio 1 GPIO_ACTIVE_HIGH>;
++	};
++};
++
++&firmware {
++	expgpio: gpio {
++		compatible = "raspberrypi,firmware-gpio";
++		gpio-controller;
++		#gpio-cells = <2>;
++		gpio-line-names = "BT_ON",
++				  "WL_ON",
++				  "STATUS_LED",
++				  "LAN_RUN",
++				  "HPD_N",
++				  "CAM_GPIO0",
++				  "CAM_GPIO1",
++				  "PWR_LOW_N";
++		status = "okay";
++	};
++};
++
++&pwm {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pwm0_gpio40 &pwm1_gpio41>;
++	status = "okay";
++};
++
++&hdmi {
++	hpd-gpios = <&expgpio 4 GPIO_ACTIVE_LOW>;
+ };
+ 
+ /* uart0 communicates with the BT module */
+@@ -30,6 +62,12 @@
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&uart0_gpio32 &gpclk2_gpio43>;
+ 	status = "okay";
++
++	bluetooth {
++		compatible = "brcm,bcm43438-bt";
++		max-speed = <2000000>;
++		shutdown-gpios = <&expgpio 0 GPIO_ACTIVE_HIGH>;
++	};
+ };
+ 
+ /* uart1 is mapped to the pin header */
+@@ -41,11 +79,19 @@
+ 
+ /* SDHCI is used to control the SDIO for wireless */
+ &sdhci {
++	#address-cells = <1>;
++	#size-cells = <0>;
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&emmc_gpio34>;
+ 	status = "okay";
+ 	bus-width = <4>;
+ 	non-removable;
++	mmc-pwrseq = <&wifi_pwrseq>;
++
++	brcmf: wifi@1 {
++		reg = <1>;
++		compatible = "brcm,bcm4329-fmac";
++	};
+ };
+ 
+ /* SDHOST is used to drive the SD card */
+@@ -54,4 +100,4 @@
+ 	pinctrl-0 = <&sdhost_gpio48>;
+ 	status = "okay";
+ 	bus-width = <4>;
+-};
++};
+\ No newline at end of file
+-- 
+2.17.1
+

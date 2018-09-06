@@ -1,0 +1,26 @@
+From b68d5c71017387559f3923ca6361b98c49f9f079 Mon Sep 17 00:00:00 2001
+From: Robert Marko <robimarko@gmail.com>
+Date: Thu, 6 Sep 2018 16:58:26 +0000
+Subject: [PATCH] 4.18-Backport bcm283x.dtsi
+
+Backport bcm283x.dtsi from 4.18.6
+
+Signed-off-by: Robert Marko <robimarko@gmail.com>
+---
+ arch/arm/boot/dts/bcm283x.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm/boot/dts/bcm283x.dtsi b/arch/arm/boot/dts/bcm283x.dtsi
+index 4745e3c7..b1ce4ed7 100644
+--- a/arch/arm/boot/dts/bcm283x.dtsi
++++ b/arch/arm/boot/dts/bcm283x.dtsi
+@@ -640,4 +640,4 @@
+ 	usbphy: phy {
+ 		compatible = "usb-nop-xceiv";
+ 	};
+-};
++};
+\ No newline at end of file
+-- 
+2.17.1
+
