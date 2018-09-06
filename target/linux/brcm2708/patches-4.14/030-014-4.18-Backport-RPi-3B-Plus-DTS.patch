@@ -1,0 +1,130 @@
+From e5ea87adcc8be8ab0afc39e4f9a8493cd80f211f Mon Sep 17 00:00:00 2001
+From: Robert Marko <robimarko@gmail.com>
+Date: Thu, 6 Sep 2018 22:22:33 +0000
+Subject: [PATCH] 4.18-Backport RPi 3B Plus DTS
+
+Backport the RPi 3B Plus DTS from 4.18.6
+
+Signed-off-by: Robert Marko <robimarko@gmail.com>
+---
+ arch/arm/boot/dts/bcm2837-rpi-3-b-plus.dts | 108 +++++++++++++++++++++
+ 1 file changed, 108 insertions(+)
+ create mode 100644 arch/arm/boot/dts/bcm2837-rpi-3-b-plus.dts
+
+diff --git a/arch/arm/boot/dts/bcm2837-rpi-3-b-plus.dts b/arch/arm/boot/dts/bcm2837-rpi-3-b-plus.dts
+new file mode 100644
+index 00000000..4adb85e6
+--- /dev/null
++++ b/arch/arm/boot/dts/bcm2837-rpi-3-b-plus.dts
+@@ -0,0 +1,108 @@
++// SPDX-License-Identifier: GPL-2.0
++/dts-v1/;
++#include "bcm2837.dtsi"
++#include "bcm2835-rpi.dtsi"
++#include "bcm283x-rpi-lan7515.dtsi"
++#include "bcm283x-rpi-usb-host.dtsi"
++
++/ {
++	compatible = "raspberrypi,3-model-b-plus", "brcm,bcm2837";
++	model = "Raspberry Pi 3 Model B+";
++
++	chosen {
++		/* 8250 auxiliary UART instead of pl011 */
++		stdout-path = "serial1:115200n8";
++	};
++
++	memory {
++		reg = <0 0x40000000>;
++	};
++
++	leds {
++		act {
++			gpios = <&gpio 29 GPIO_ACTIVE_HIGH>;
++		};
++
++		pwr {
++			label = "PWR";
++			gpios = <&expgpio 2 GPIO_ACTIVE_LOW>;
++		};
++	};
++
++	wifi_pwrseq: wifi-pwrseq {
++		compatible = "mmc-pwrseq-simple";
++		reset-gpios = <&expgpio 1 GPIO_ACTIVE_HIGH>;
++	};
++};
++
++&firmware {
++	expgpio: gpio {
++		compatible = "raspberrypi,firmware-gpio";
++		gpio-controller;
++		#gpio-cells = <2>;
++		gpio-line-names = "BT_ON",
++				  "WL_ON",
++				  "STATUS_LED",
++				  "LAN_RUN",
++				  "",
++				  "CAM_GPIO0",
++				  "CAM_GPIO1",
++				  "";
++		status = "okay";
++	};
++};
++
++&hdmi {
++	hpd-gpios = <&gpio 28 GPIO_ACTIVE_LOW>;
++};
++
++&pwm {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pwm0_gpio40 &pwm1_gpio41>;
++	status = "okay";
++};
++
++/* SDHCI is used to control the SDIO for wireless */
++&sdhci {
++	#address-cells = <1>;
++	#size-cells = <0>;
++	pinctrl-names = "default";
++	pinctrl-0 = <&emmc_gpio34>;
++	status = "okay";
++	bus-width = <4>;
++	non-removable;
++	mmc-pwrseq = <&wifi_pwrseq>;
++
++	brcmf: wifi@1 {
++		reg = <1>;
++		compatible = "brcm,bcm4329-fmac";
++	};
++};
++
++/* SDHOST is used to drive the SD card */
++&sdhost {
++	pinctrl-names = "default";
++	pinctrl-0 = <&sdhost_gpio48>;
++	status = "okay";
++	bus-width = <4>;
++};
++
++/* uart0 communicates with the BT module */
++&uart0 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&uart0_ctsrts_gpio30 &uart0_gpio32 &gpclk2_gpio43>;
++	status = "okay";
++
++	bluetooth {
++		compatible = "brcm,bcm43438-bt";
++		max-speed = <2000000>;
++		shutdown-gpios = <&expgpio 0 GPIO_ACTIVE_HIGH>;
++	};
++};
++
++/* uart1 is mapped to the pin header */
++&uart1 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&uart1_gpio14>;
++	status = "okay";
++};
+-- 
+2.17.1
+
