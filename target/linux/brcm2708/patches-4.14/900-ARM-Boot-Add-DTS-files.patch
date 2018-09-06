@@ -1,0 +1,25 @@
+From 34bffb8f5f66cb7f243acd0d58a9c3b57b33b01c Mon Sep 17 00:00:00 2001
+From: Robert Marko <robimarko@gmail.com>
+Date: Thu, 6 Sep 2018 20:46:06 +0000
+Subject: [PATCH] ARM: Boot: Add DTS files
+
+Signed-off-by: Robert Marko <robimarko@gmail.com>
+---
+ arch/arm/boot/dts/Makefile | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+index eff87a34..357708e5 100644
+--- a/arch/arm/boot/dts/Makefile
++++ b/arch/arm/boot/dts/Makefile
+@@ -75,6 +75,7 @@ dtb-$(CONFIG_ARCH_BCM2835) += \
+ 	bcm2835-rpi-a-plus.dtb \
+ 	bcm2836-rpi-2-b.dtb \
+ 	bcm2837-rpi-3-b.dtb \
++	bcm2837-rpi-3-b-plus.dtb \
+ 	bcm2835-rpi-zero.dtb \
+ 	bcm2835-rpi-zero-w.dtb
+ dtb-$(CONFIG_ARCH_BCM_5301X) += \
+-- 
+2.17.1
+
