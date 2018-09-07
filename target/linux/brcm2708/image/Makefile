@@ -29,7 +29,6 @@ define Build/boot-img
 	mcopy -i $@.boot cmdline.txt ::
 	mcopy -i $@.boot config.txt ::
 	mcopy -i $@.boot $(IMAGE_KERNEL) ::$(KERNEL_IMG)
-	$(foreach dts,$(shell echo $(DEVICE_DTS)),mcopy -i $@.boot $(DTS_DIR)/$(dts).dtb ::;)
 endef
 
 define Build/sdcard-img
