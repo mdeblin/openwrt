@@ -19,7 +19,7 @@ include $(INCLUDE_DIR)/host-build.mk
 
 define U-Boot/Default
   BUILD_TARGET:=brcm2708
-  UBOOT_IMAGE:=u-boot.img
+  UBOOT_IMAGE:=u-boot.bin
 endef
 
 define U-Boot/rpi
