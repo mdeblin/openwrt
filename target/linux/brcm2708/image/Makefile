@@ -39,6 +39,7 @@ endef
 
 ### Devices ###
 define Device/Default
+  KERNEL_DEPENDS = $$(wildcard $(DTS_DIR)/$$(DEVICE_DTS).dts)
   KERNEL := kernel-bin
   KERNEL_IMG := kernel.bin
   IMAGES := factory.img.gz sysupgrade.img.gz
