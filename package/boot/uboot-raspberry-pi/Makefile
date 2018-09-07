@@ -39,12 +39,12 @@ endef
 
 define U-Boot/rpi_3_32b
   NAME:=Raspberry Pi 3 B/B+ 32bit Boards
-  BUILD_DEVICES:= rpi-3-b-32b rpi-3-b-plus-32b
+  BUILD_DEVICES:= rpi-3-32b
 endef
 
 define U-Boot/rpi_3
   NAME:=Raspberry Pi 3 B/B+ 64bit Boards
-  BUILD_DEVICES:= rpi-3-b-64b rpi-3-b-plus-64b
+  BUILD_DEVICES:= rpi-3-64b
 endef
 
 UBOOT_TARGETS := \
