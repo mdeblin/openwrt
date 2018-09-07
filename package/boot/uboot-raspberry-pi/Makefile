@@ -29,7 +29,7 @@ endef
 
 define U-Boot/rpi_2
   NAME:=Raspberry Pi 2 B Board
-  BUILD_DEVICES:= rpi-2-b
+  BUILD_DEVICES:= rpi-2
 endef
 
 define U-Boot/rpi_0_w
