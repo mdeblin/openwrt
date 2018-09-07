@@ -53,7 +53,7 @@ UBOOT_TARGETS := \
 	rpi_2 \
 	rpi_zero-w \
 	rpi_3_32b \
-  rpi_3
+  	rpi_3
 
 Build/Exports:=$(Host/Exports)
 
