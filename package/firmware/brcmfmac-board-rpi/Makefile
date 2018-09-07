@@ -43,21 +43,21 @@ define Package/brcmfmac-board-rpi/Default
   PKGARCH:=all
 endef
 
-define Package/brcmfmac-board-rpi2
+define Package/brcmfmac-board-rpi3-b
   $(call Package/brcmfmac-board-rpi/Default)
   TITLE:=BCM43430 RPi SDIO NVRAM
 endef
 
-define Package/brcmfmac-board-rpi2/description
+define Package/brcmfmac-board-rpi3-b/description
   NVRAM for the Broadcom BCM43430 on RPi boards.
 endef
 
-define Package/brcmfmac-board-rpi3
+define Package/brcmfmac-board-rpi3-b-plus
   $(call Package/brcmfmac-board-rpi/Default)
   TITLE:=BCM43455 RPi SDIO NVRAM
 endef
 
-define Package/brcmfmac-board-rpi3/description
+define Package/brcmfmac-board-rpi3-b-plus/description
   NVRAM and localisations blob for the Broadcom BCM43455 on RPi boards.
 endef
 
@@ -73,16 +73,16 @@ define Build/Compile
 	true
 endef
 
-define Package/brcmfmac-board-rpi2/install
+define Package/brcmfmac-board-rpi3-b/install
 	$(INSTALL_DIR) $(1)/lib/firmware/brcm/
 	$(INSTALL_DATA) $(PKG_BUILD_DIR)/brcmfmac43430-sdio.txt $(1)/lib/firmware/brcm/
 endef
 
-define Package/brcmfmac-board-rpi3/install
+define Package/brcmfmac-board-rpi3-b-plus/install
 	$(INSTALL_DIR) $(1)/lib/firmware/brcm/
 	$(INSTALL_DATA) $(PKG_BUILD_DIR)/brcmfmac43455-sdio.txt $(1)/lib/firmware/brcm/
 	$(INSTALL_DATA) $(PKG_BUILD_DIR)/brcmfmac43455-sdio.clm_blob $(1)/lib/firmware/brcm/
 endef
 
-$(eval $(call BuildPackage,brcmfmac-board-rpi2))
-$(eval $(call BuildPackage,brcmfmac-board-rpi3))
+$(eval $(call BuildPackage,brcmfmac-board-rpi3-b))
+$(eval $(call BuildPackage,brcmfmac-board-rpi3-b-plus))
