@@ -23,7 +23,7 @@ define Download/brcmfmac43455_sdio_txt
   FILE:=$(BRCMFMAC43455_SDIO_FILE).txt
   URL:=$(BRCMFMAC434XX_SDIO_URL)
   URL_FILE:=brcmfmac43455-sdio.txt
-  HASH:=0f1817f50649df707f521dec9f2d5905e4c01939c8aabfa9a06b2ce0a36952ee
+  HASH:=e971a57d928d2f2020906aca80a373565af5e4fa03357ed702a6bb5127df8b64
 endef
 $(eval $(call Download,brcmfmac43455_sdio_txt))
 
