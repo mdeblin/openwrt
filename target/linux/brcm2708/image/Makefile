@@ -55,34 +55,45 @@ define Device/Default
 endef
 
 define Device/rpi
-  DEVICE_TITLE := Raspberry Pi B/B+/Zero/ZeroW
-  DEVICE_DTS := bcm2835-rpi-b bcm2835-rpi-b-plus bcm2835-rpi-zero-w
-  SUPPORTED_DEVICES := raspberrypi,model-b raspberrypi,model-b-plus raspberrypi,model-zero-w
-  DEVICE_PACKAGES := brcmfmac-firmware-43430-sdio brcmfmac-board-rpi2 kmod-brcmfmac wpad-mini
+  DEVICE_TITLE := Raspberry Pi B/B+
+  DEVICE_DTS := bcm2835-rpi-b bcm2835-rpi-b-plus
+  SUPPORTED_DEVICES := raspberrypi,model-b raspberrypi,model-b-plus
+endef
+
+define Device/rpi-zero-w
+  DEVICE_TITLE := Raspberry Pi Zero/ZeroW
+  DEVICE_DTS := bcm2835-rpi-zero-w
+  SUPPORTED_DEVICES := raspberrypi,model-zero-w
+  DEVICE_PACKAGES := brcmfmac-firmware-43430-sdio brcmfmac-board-rpi3-b kmod-brcmfmac wpad-mini
 endef
 ifeq ($(SUBTARGET),bcm2708)
-  TARGET_DEVICES += rpi
+  TARGET_DEVICES += rpi rpi-zero-w
 endif
 
 define Device/rpi-2
-  DEVICE_TITLE := Raspberry Pi 2B/3B/3B+
-  DEVICE_DTS := bcm2836-rpi-2-b bcm2837-rpi-3-b bcm2837-rpi-3-b-plus
-  SUPPORTED_DEVICES := raspberrypi,model-b-rev2 raspberrypi,3-model-b raspberrypi,3-model-b-plus
-  DEVICE_PACKAGES := brcmfmac-firmware-43430-sdio brcmfmac-firmware-43455-sdio brcmfmac-board-rpi2 brcmfmac-board-rpi3 kmod-brcmfmac wpad-mini
+  DEVICE_TITLE := Raspberry Pi 2B
+  DEVICE_DTS := bcm2836-rpi-2-b
+  SUPPORTED_DEVICES := raspberrypi,2-model-b
+endef
+
+define Device/rpi-3-32b
+  DEVICE_TITLE := Raspberry Pi 3B/3B+ 32bit
+  DEVICE_DTS := bcm2837-rpi-3-b bcm2837-rpi-3-b-plus
+  SUPPORTED_DEVICES := raspberrypi,3-model-b raspberrypi,3-model-b-plus
+  DEVICE_PACKAGES := brcmfmac-firmware-43430-sdio brcmfmac-firmware-43455-sdio brcmfmac-board-rpi3-b brcmfmac-board-rpi3-b-plus kmod-brcmfmac wpad-mini
 endef
 ifeq ($(SUBTARGET),bcm2709)
-  TARGET_DEVICES += rpi-2
+  TARGET_DEVICES += rpi-2 rpi-3-32b
 endif
 
-define Device/rpi-3
-  KERNEL_IMG := kernel8.img
-  DEVICE_TITLE := Raspberry Pi 3B/3B+
-  DEVICE_DTS := broadcom/bcm2710-rpi-3-b broadcom/bcm2710-rpi-3-b-plus
-  SUPPORTED_DEVICES := rpi-3-b rpi-3-b-plus raspberrypi,3-model-b raspberrypi,3-model-b-plus
-  DEVICE_PACKAGES := brcmfmac-firmware-43430-sdio brcmfmac-board-rpi2 brcmfmac-firmware-43455-sdio brcmfmac-board-rpi3 kmod-brcmfmac wpad-mini
+define Device/rpi-3-64b
+  DEVICE_TITLE := Raspberry Pi 3B/3B+ 64bit 
+  DEVICE_DTS := bcm2837-rpi-3-b bcm2837-rpi-3-b-plus
+  SUPPORTED_DEVICES := raspberrypi,3-model-b raspberrypi,3-model-b-plus
+  DEVICE_PACKAGES := brcmfmac-firmware-43430-sdio brcmfmac-board-rpi3-b brcmfmac-firmware-43455-sdio brcmfmac-board-rpi3-b-plus kmod-brcmfmac wpad-mini
 endef
 ifeq ($(SUBTARGET),bcm2710)
-  TARGET_DEVICES += rpi-3
+  TARGET_DEVICES += rpi-3-64b
 endif
 
 $(eval $(call BuildImage))
