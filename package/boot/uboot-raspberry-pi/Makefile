@@ -32,9 +32,8 @@ define U-Boot/rpi_2
   BUILD_DEVICES:= rpi-2-b
 endef
 
-define U-Boot/rpi_zero-w
+define U-Boot/rpi_0_w
   NAME:=Raspberry Pi Zero W Board
-  UBOOT_CONFIG:= rpi_0_w
   BUILD_DEVICES:= rpi-zero-w
 endef
 
@@ -51,7 +50,7 @@ endef
 UBOOT_TARGETS := \
 	rpi \
 	rpi_2 \
-	rpi_zero-w \
+	rpi_0_w \
 	rpi_3_32b \
   	rpi_3
 
