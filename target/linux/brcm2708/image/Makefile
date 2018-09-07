@@ -16,11 +16,6 @@ define Build/Compile
 endef
 
 ### Image scripts ###
-define Build/kernel-img
-	perl $(LINUX_DIR)/scripts/mkknlimg $@ $@.tmp
-	mv $@.tmp $@
-endef
-
 define Build/boot-img
 	rm -f $@.boot
 	mkfs.fat -C $@.boot $(FAT32_BLOCKS)
@@ -44,8 +39,8 @@ endef
 
 ### Devices ###
 define Device/Default
-  KERNEL := kernel-bin | kernel-img
-  KERNEL_IMG := kernel.img
+  KERNEL := kernel-bin
+  KERNEL_IMG := kernel.bin
   IMAGES := factory.img.gz sysupgrade.img.gz
   IMAGE/sysupgrade.img.gz := boot-img | sdcard-img | gzip | append-metadata
   IMAGE/factory.img.gz := boot-img | sdcard-img | gzip
