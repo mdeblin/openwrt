@@ -54,6 +54,14 @@ UBOOT_TARGETS := \
 	rpi_3_32b \
   	rpi_3
 
+define Build/InstallDev
+	$(INSTALL_DIR) $(STAGING_DIR_IMAGE)
+	$(CP) $(PKG_BUILD_DIR)/$(UBOOT_IMAGE) $(STAGING_DIR_IMAGE)/$(BUILD_DEVICES)-u-boot.bin
+endef
+
+define Package/u-boot/install/default
+endef
+
 Build/Exports:=$(Host/Exports)
 
 $(eval $(call BuildPackage/U-Boot))
