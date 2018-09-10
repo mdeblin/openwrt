@@ -26,6 +26,8 @@ define Build/boot-img
 	mcopy -i $@.boot $(KDIR)/start_cd.elf ::
 	mcopy -i $@.boot $(KDIR)/fixup.dat ::
 	mcopy -i $@.boot $(KDIR)/fixup_cd.dat ::
+	mcopy -i $@.boot $(STAGING_DIR_IMAGE)/$(DEVICE_NAME)-boot.bin ::u-boot.bin
+	mcopy -i $@.boot $(STAGING_DIR_IMAGE)/$(DEVICE_NAME)-uEnv.txt ::uEnv.txt
 	mcopy -i $@.boot $(IMAGE_KERNEL) ::$(KERNEL_IMG)
 endef
 
@@ -34,15 +36,24 @@ define Build/sdcard-img
 		$(CONFIG_BRCM2708_SD_BOOT_PARTSIZE) $(CONFIG_TARGET_ROOTFS_PARTSIZE)
 endef
 
-### Devices ###
+#################################################
+# Default and templates
+#################################################
+
+
 define Device/Default
   KERNEL_DEPENDS = $$(wildcard $(DTS_DIR)/$$(DEVICE_DTS).dts)
+  KERNEL_LOADADDR := 0x8000
   KERNEL := kernel-bin
-  KERNEL_IMG := kernel.bin
+  KERNEL_IMG := kernel.bin | append-dtb
   IMAGES := factory.img.gz sysupgrade.img.gz
   IMAGE/sysupgrade.img.gz := boot-img | sdcard-img | gzip | append-metadata
   IMAGE/factory.img.gz := boot-img | sdcard-img | gzip
 endef
+
+#################################################
+# Devices
+#################################################
 
 define Device/rpi
   DEVICE_TITLE := Raspberry Pi B/B+
