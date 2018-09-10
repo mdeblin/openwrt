@@ -20,6 +20,8 @@ include $(INCLUDE_DIR)/host-build.mk
 define U-Boot/Default
   BUILD_TARGET:=brcm2708
   UBOOT_IMAGE:=u-boot.bin
+  UENV:=default
+  HIDDEN:=1
 endef
 
 define U-Boot/rpi
@@ -57,6 +59,7 @@ UBOOT_TARGETS := \
 define Build/InstallDev
 	$(INSTALL_DIR) $(STAGING_DIR_IMAGE)
 	$(CP) $(PKG_BUILD_DIR)/$(UBOOT_IMAGE) $(STAGING_DIR_IMAGE)/$(BUILD_DEVICES)-u-boot.bin
+	$(CP) ./files/uEnv-$(UENV).txt $(STAGING_DIR_IMAGE)/$(BUILD_DEVICES)-uEnv.txt
 endef
 
 define Package/u-boot/install/default
