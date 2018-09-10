@@ -26,8 +26,6 @@ define Build/boot-img
 	mcopy -i $@.boot $(KDIR)/start_cd.elf ::
 	mcopy -i $@.boot $(KDIR)/fixup.dat ::
 	mcopy -i $@.boot $(KDIR)/fixup_cd.dat ::
-	mcopy -i $@.boot cmdline.txt ::
-	mcopy -i $@.boot config.txt ::
 	mcopy -i $@.boot $(IMAGE_KERNEL) ::$(KERNEL_IMG)
 endef
 
