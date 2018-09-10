@@ -21,7 +21,6 @@ define U-Boot/Default
   BUILD_TARGET:=brcm2708
   UBOOT_IMAGE:=u-boot.bin
   UENV:=default
-  HIDDEN:=1
 endef
 
 define U-Boot/rpi
