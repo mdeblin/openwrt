@@ -26,7 +26,7 @@ define Build/boot-img
 	mcopy -i $@.boot $(KDIR)/start_cd.elf ::
 	mcopy -i $@.boot $(KDIR)/fixup.dat ::
 	mcopy -i $@.boot $(KDIR)/fixup_cd.dat ::
-	mcopy -i $@.boot $(STAGING_DIR_IMAGE)/$(DEVICE_NAME)-boot.bin ::u-boot.bin
+	mcopy -i $@.boot $(STAGING_DIR_IMAGE)/$(DEVICE_NAME)-u-boot.bin ::u-boot.bin
 	mcopy -i $@.boot $(STAGING_DIR_IMAGE)/$(DEVICE_NAME)-uEnv.txt ::uEnv.txt
 	mcopy -i $@.boot $(IMAGE_KERNEL) ::$(KERNEL_IMG)
 endef
