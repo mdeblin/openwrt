@@ -56,12 +56,14 @@ endef
 #################################################
 
 define Device/rpi
+  $(call Device/Default)
   DEVICE_TITLE := Raspberry Pi B/B+
   DEVICE_DTS := bcm2835-rpi-b bcm2835-rpi-b-plus
   SUPPORTED_DEVICES := raspberrypi,model-b raspberrypi,model-b-plus
 endef
 
 define Device/rpi-zero-w
+  $(call Device/Default)
   DEVICE_TITLE := Raspberry Pi Zero/ZeroW
   DEVICE_DTS := bcm2835-rpi-zero-w
   SUPPORTED_DEVICES := raspberrypi,model-zero-w
@@ -72,12 +74,14 @@ ifeq ($(SUBTARGET),bcm2708)
 endif
 
 define Device/rpi-2
+  $(call Device/Default)
   DEVICE_TITLE := Raspberry Pi 2B
   DEVICE_DTS := bcm2836-rpi-2-b
   SUPPORTED_DEVICES := raspberrypi,2-model-b
 endef
 
 define Device/rpi-3-32b
+  $(call Device/Default)
   DEVICE_TITLE := Raspberry Pi 3B/3B+ 32bit
   DEVICE_DTS := bcm2837-rpi-3-b bcm2837-rpi-3-b-plus
   SUPPORTED_DEVICES := raspberrypi,3-model-b raspberrypi,3-model-b-plus
@@ -88,7 +92,9 @@ ifeq ($(SUBTARGET),bcm2709)
 endif
 
 define Device/rpi-3-64b
-  DEVICE_TITLE := Raspberry Pi 3B/3B+ 64bit 
+  $(call Device/Default)
+  KERNEL_LOADADDR := 0x8000
+  DEVICE_TITLE := Raspberry Pi 3B/3B+ 64bit
   DEVICE_DTS := bcm2837-rpi-3-b bcm2837-rpi-3-b-plus
   SUPPORTED_DEVICES := raspberrypi,3-model-b raspberrypi,3-model-b-plus
   DEVICE_PACKAGES := brcmfmac-firmware-43430-sdio brcmfmac-board-rpi3-b brcmfmac-firmware-43455-sdio brcmfmac-board-rpi3-b-plus kmod-brcmfmac wpad-mini
