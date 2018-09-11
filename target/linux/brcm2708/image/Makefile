@@ -93,7 +93,7 @@ endif
 
 define Device/rpi-3-64b
   $(call Device/Default)
-  KERNEL_LOADADDR := 0x8000
+  KERNEL_LOADADDR := 0x80000
   DEVICE_TITLE := Raspberry Pi 3B/3B+ 64bit
   DEVICE_DTS := bcm2837-rpi-3-b bcm2837-rpi-3-b-plus
   SUPPORTED_DEVICES := raspberrypi,3-model-b raspberrypi,3-model-b-plus
