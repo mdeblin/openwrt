@@ -8,7 +8,7 @@ CPU_TYPE:=cortex-a7
 CPU_SUBTYPE:=neon-vfpv4
 MAINTAINER:=John Crispin <john@phrozen.org>
 
-KERNEL_PATCHVER:=4.14
+KERNEL_PATCHVER:=4.19
 
 KERNELNAME:=zImage Image dtbs
 
