@@ -43,6 +43,15 @@ define Build/elecom-header
 
 endef
 
+define Device/8dev_carambola-2
+  ATH_SOC := ar9331
+  DEVICE_TITLE := 8devices Carambola 2
+  IMAGE_SIZE := 16000k
+  DEVICE_PACKAGES := kmod-usb-core kmod-usb2
+  SUPPORTED_DEVICES += carambola2
+endef
+TARGET_DEVICES += 8dev_carambola-2
+
 define Device/avm_fritz300e
   ATH_SOC := ar7242
   DEVICE_TITLE := AVM FRITZ!WLAN Repeater 300E
