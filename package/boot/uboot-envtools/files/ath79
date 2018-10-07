@@ -13,6 +13,7 @@ touch /etc/config/ubootenv
 board=$(board_name)
 
 case "$board" in
+8dev,carambola-2|\
 glinet,ar300m|\
 ocedo,koala|\
 ocedo,raccoon|\
