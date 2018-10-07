@@ -44,7 +44,7 @@
 		};
 
 		eth1 {
-			label = "carambola-2:green:eth0";
+			label = "carambola-2:green:eth1";
 			gpios = <&gpio 13 GPIO_ACTIVE_HIGH>;
 		};
 	};
