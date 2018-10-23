@@ -18,7 +18,7 @@ define Package/eoip
   CATEGORY:=Network
   SUBMENU:=VPN
   TITLE:=Linux implementation of Mikrotik EOIP
-  DEPENDS:=+kmod-tun
+  DEPENDS:=+kmod-tun +kmod-gre +gre
 endef
 
 define Package/eoip/install
